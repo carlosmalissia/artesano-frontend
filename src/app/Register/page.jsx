@@ -15,10 +15,10 @@ const Register = () => {
 
         const res = await fetch('https://api-react-node.vercel.app/auth/register', {
             method: 'POST',
-            body: data,
+            body: JSON.stringify(data),
             headers: {
-                'Content-Type': 'multipart/form-data'
-            }
+                "Content-Type": "application/json",
+            },
         });
         const resJson = await res.json()
         console.log(data);
