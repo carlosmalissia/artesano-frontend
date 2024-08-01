@@ -2,6 +2,7 @@
 import React from "react";
 import { HeartIcon } from "lucide-react";
 import Link from "next/link"
+import Image from "next/image";
 
 export default function Card({ props }) {
     const { _id, name, images, description, categories, originalPrice, salePrice, stock } = props;
@@ -17,7 +18,14 @@ export default function Card({ props }) {
                         <HeartIcon strokeWidth={2} />
                     </div>
                     <div className="flex flex-col items-center">
-                        <img src={images[0]} alt="Producto sin imagen" className="bg-cream rounded-xl text-xs h-[114px]"></img>
+                        <Image
+
+                            src={images[0]}
+                            alt="Producto sin imagen"
+                            className="bg-cream rounded-xl text-xs "
+                            width={180}
+                            height={172}
+                        />
                     </div>
                     <div className="bg-cream rounded-t-xl p-1 mt-2 h-[135px] flex flex-col justify-between items-center">
                         <div className="flex flex-col items-center justify-between h-full">
