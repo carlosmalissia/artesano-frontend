@@ -7,10 +7,11 @@ import Image from "next/image";
 export default function Card({ props }) {
     const { _id, name, images, description, categories, originalPrice, salePrice, stock } = props;
 
+
     return (<>
         <Link href={`/Detail/${_id}`}>
             <div className="bg-cream p-1" id={_id}>
-                <div className="p-2 w-[185px] h-[327px] md:w-auto lg:w-auto md:h-auto lg:h-auto lg:m-2 bg-amber rounded-lg flex flex-col justify-between">
+                <div className="p-2 w-[155px] h-[327px] md:w-auto lg:w-auto md:h-auto lg:h-auto lg:m-2 bg-amber rounded-lg flex flex-col justify-between">
                     <div className="flex flex-row flex-nowrap justify-between items-start">
                         <h2 className="text-sm text-dark-pink">
                             {categories[0] ? categories[0] : "Categoría"}
@@ -23,8 +24,8 @@ export default function Card({ props }) {
                             src={images[0]}
                             alt="Producto sin imagen"
                             className="bg-cream rounded-xl text-xs "
-                            width={180}
-                            height={172}
+                            width={120}
+                            height={114}
                         />
                     </div>
                     <div className="bg-cream rounded-t-xl p-1 mt-2 h-[135px] flex flex-col justify-between items-center">
@@ -50,7 +51,7 @@ export default function Card({ props }) {
                     </div>
                     <div className="flex flex-row flex-nowrap justify-around items-center bg-cream rounded-b-xl p-1">
                         <p className="bg-dark-aqua text-xs text-center text-brown rounded-full pl-1 pr-1">
-                            "3 cuotas s/int"
+                            3 cuotas s/int
                         </p>
                         <button className="bg-dark-aqua text-brown text-bold rounded-full pr-2 pl-2">
                             +
