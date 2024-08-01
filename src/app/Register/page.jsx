@@ -4,9 +4,6 @@ import { useForm } from "react-hook-form"
 //import { toast, Toaster } from 'react-hot-toast';
 import { Eye, EyeOff } from "lucide-react"
 
-
-
-
 const Register = () => {
 
     // validaciones con useForm
@@ -15,8 +12,7 @@ const Register = () => {
     const onSubmit = handleSubmit(async data => {
         data.roles = "user"
         console.log(data);
-        /* const formData = new FormData(data.currentTarget)
-        console.log("formData: ", formData); */
+
         const res = await fetch('https://api-react-node.vercel.app/auth/register', {
             method: 'POST',
             body: data,
