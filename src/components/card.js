@@ -50,7 +50,7 @@ export default function Card({ props }) {
                     </div>
                     <div className="flex flex-row flex-nowrap justify-around items-center bg-cream rounded-b-xl p-1">
                         <p className="bg-dark-aqua text-xs text-center text-brown rounded-full pl-1 pr-1">
-                            "3 cuotas s/int"
+                            3 cuotas s/int
                         </p>
                         <button className="bg-dark-aqua text-brown text-bold rounded-full pr-2 pl-2">
                             +
