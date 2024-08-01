@@ -21,7 +21,7 @@ const Register = () => {
             }
         });
         const resJson = await res.json()
-        console.log(formData);
+        console.log(data);
         console.log(resJson);
     })
 
