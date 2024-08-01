@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import Card from "@/components/card";
+import Card from "./card";
 import Slider from "react-slick";
 import React from "react";
 import "slick-carousel/slick/slick.css";
