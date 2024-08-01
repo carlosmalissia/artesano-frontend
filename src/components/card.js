@@ -23,8 +23,8 @@ export default function Card({ props }) {
                             src={images[0]}
                             alt="Producto sin imagen"
                             className="bg-cream rounded-xl text-xs "
-                            width={180}
-                            height={172}
+                            width={120}
+                            height={114}
                         />
                     </div>
                     <div className="bg-cream rounded-t-xl p-1 mt-2 h-[135px] flex flex-col justify-between items-center">
