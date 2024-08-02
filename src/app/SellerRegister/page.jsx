@@ -9,7 +9,7 @@ const SellerRegister = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
 
     const onSubmit = handleSubmit(async data => {
-        data.roles = ["user", "seller"]
+        data.roles = "user", "seller"
         const res = await fetch('https://api-react-node.vercel.app/auth/register', {
             method: 'POST',
             body: JSON.stringify(data),
@@ -30,7 +30,7 @@ const SellerRegister = () => {
     };
 
     return (
-        <div className="min-h-screen  flex  justify-center bg-white text-brown">
+        <div className="min-h-screen  flex  justify-center bg-white text-brown mt-10">
             <div className="p-4 rounded shadow-xl w-[274px] flex flex-col">
                 <h1 className="text-xl font-bold text-center font-roboto  mx-auto mt-4 mb-8">
                     Registrarse como vendedor

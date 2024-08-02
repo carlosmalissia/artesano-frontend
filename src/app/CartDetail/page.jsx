@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks"
 import Link from "next/link"
 
 import CartItem from "@/components/CartItem/CartItem";
@@ -10,6 +10,11 @@ const CartDetailPage = () => {
 
     const dispatch = useAppDispatch();
     const cartItems = useSelector((state) => state.cartReducer.cartItems);
+
+
+    const calculateTotal = () => {
+        return cartItems.reduce((acc, item) => acc + item.subtotal, 0).toFixed(2);
+    };
 
     useEffect(() => {
         console.log("Contenido del carrito:", cartItems);
@@ -58,7 +63,7 @@ const CartDetailPage = () => {
                             <p>
                                 Subtotal
                             </p>
-                            <span className="ml-2">XXXXXXX</span>
+                            <span className="ml-2">$ {calculateTotal()}</span>
 
                         </div>
                         <div className=" text-sm flex justify-between ">
@@ -74,7 +79,7 @@ const CartDetailPage = () => {
                                 Total:
                             </p>
                             <span className="ml-2">
-                                $ XXXXXXX
+                                $ {calculateTotal()}
                             </span>
                         </div>
                         <br />
