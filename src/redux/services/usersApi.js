@@ -4,7 +4,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const userApi = createApi({
     reducerPath: "usersAPI",
     baseQuery: fetchBaseQuery({
-        baseUrl: "https://api-henrucci.onrender.com",
+        baseUrl: "https://api-react-node.vercel.app",
     }),
     tagTypes: ["Users", 'Reviews'],
     endpoints: (builder) => ({
@@ -24,13 +24,10 @@ export const userApi = createApi({
             },
         }),
         loginUser: builder.mutation({
-            query: ({ loginEmail, loginPassword }) => ({
-                url: `/auth/signin`, // URL del endpoint de inicio de sesión
+            query: (data) => ({
+                url: `/auth/login`, // URL del endpoint de inicio de sesión artesano
                 method: "POST",
-                body: {
-                    email: loginEmail,
-                    password: loginPassword,
-                },
+                body: data
             }),
         }),
         loginUserGoogle: builder.mutation({
@@ -120,7 +117,7 @@ export const {
     useGetUserReviewsQuery,
     useUpdateReviewMutation,
 
-    
-    
+
+
 } = userApi;
 

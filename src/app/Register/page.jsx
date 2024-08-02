@@ -141,10 +141,12 @@ const Register = () => {
 
                 <div className="mt-2 flex flex-col">
                     <h1 className="mt-2">¿Ya tienes una cuenta?</h1>
-                    <button
-                        className=" transition-all duration-300 ease-in-out transform scale-100 hover:scale-105 mt-2 bg-b-green text-white rounded px-4 py-2 hover:bg-red-800 focus:outline-none">
-                        Iniciar sesión
-                    </button>
+                    <Link href="/Login">
+                        <button
+                            className=" transition-all duration-300 ease-in-out transform scale-100 hover:scale-105 mt-2 bg-b-green text-white rounded px-4 py-2 hover:bg-red-800 focus:outline-none">
+                            Iniciar sesión
+                        </button>
+                    </Link>
                 </div>
             </div>
         </div>

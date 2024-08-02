@@ -3,11 +3,22 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { useAppSelector } from "@/redux/hooks";
+import { useSession } from "next-auth/react";
+import { getlogindata } from "@/redux/features/userSlice";
+import { useDispatch } from "react-redux";
 import { PackageSearchIcon, ShoppingBagIcon, BadgeDollarSignIcon, SignatureIcon, NfcIcon, Menu, User, X, Home } from "lucide-react";
 
 export default function Navbar() {
     const router = useRouter();
     const [open, setOpen] = useState(false);
+
+    const userData = useAppSelector((state) => state.loginReducer.user);
+    console.log("userData", userData);
+    const userName = userData?.name;
+    const firstName = userName?.split(" ", 1)
+
+    const dispatch = useDispatch();
+    const { status } = useSession();
 
     //items del carrito
     const cartItems = useAppSelector((state) => state.cartReducer.cartItems);
@@ -15,7 +26,7 @@ export default function Navbar() {
     useEffect(() => {
         const count = cartItems.reduce((total, item) => total + item.quantity, 0);
         setCartItemsCount(count);
-        //dispatch(getlogindata());
+        dispatch(getlogindata());
     }, [cartItems]);
 
     //data nav
@@ -95,7 +106,11 @@ export default function Navbar() {
                     <Link href="/Login">
                         <div className="flex flex-nowrap items-center cursor-pointer text-xs text-brown hover:text-light-brown">
                             <User strokeWidth={1} />
-                            <p className="hover:underline underline-offset-1"> Ingresá</p>
+                            {userName && status === 'unauthenticated' ? (
+                                <p className="hover:underline underline-offset-1"> {firstName}</p>
+                            ) : (
+                                <p className="hover:underline underline-offset-1"> Ingresá</p>
+                            )}
                         </div>
                     </Link>
                     <Link href="/CartDetail">
