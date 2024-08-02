@@ -1,13 +1,24 @@
 "use client";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useAppSelector } from "@/redux/hooks";
 import { PackageSearchIcon, ShoppingBagIcon, BadgeDollarSignIcon, SignatureIcon, NfcIcon, Menu, User, X, Home } from "lucide-react";
 
 export default function Navbar() {
     const router = useRouter();
     const [open, setOpen] = useState(false);
+
+    //items del carrito
+    const cartItems = useAppSelector((state) => state.cartReducer.cartItems);
     const [cartItemsCount, setCartItemsCount] = useState(0);
+    useEffect(() => {
+        const count = cartItems.reduce((total, item) => total + item.quantity, 0);
+        setCartItemsCount(count);
+        //dispatch(getlogindata());
+    }, [cartItems]);
+
+    //data nav
     const navlinks = [
         {
             nombre: "Inicio",
@@ -42,7 +53,7 @@ export default function Navbar() {
 
     return (
         <>
-            <div className='flex items-center justify-around mx-auto lg:max-w-full bg-amber'>
+            <div className='flex items-center w-full fixed top-0 z-50 justify-around mx-auto lg:max-w-full bg-amber'>
                 <div className='flex md:hidden'>
                     {open === true ? (
                         <X

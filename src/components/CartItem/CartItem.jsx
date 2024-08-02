@@ -2,9 +2,10 @@
 
 import { useEffect, useState } from "react";
 import { Trash2 } from "lucide-react"
+import Image from "next/image";
 
 
-const CartItem = () => {
+const CartItem = ({ _id, name, originalPrice, images, stock }) => {
 
     const [quantity, setQuantity] = useState(1);
 
@@ -20,12 +21,16 @@ const CartItem = () => {
 
     return (
         <div className=" flex justify-between h-15 bg-amber my-2 mx-2">
-            <div className="w-[133px] h-[103px] m-1 bg-light-brown text-center pt-3">
-                img
-            </div>
+            <Image
+                src={images}
+                alt={name}
+                width={130}
+                height={120}
+                className="object-contain w-20 h-20 ml-4 mt-4"
+            />
             <div className="mx-4 pt-2 w-[207px]">
                 <div className=" text-sm text-center mb-2">
-                    Nombre del producto
+                    {name}
                 </div>
                 <div className="text-center ">
                     <input
@@ -37,7 +42,7 @@ const CartItem = () => {
                     />
                 </div>
                 <div className=" flex justify-end gap-10 text-dark-pink text-center pt-5 ml-10">
-                    159999 $
+                    {originalPrice}
                     <Trash2 />
                 </div>
             </div>

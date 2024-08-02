@@ -1,23 +1,57 @@
+"use client";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import Link from "next/link"
+
 import CartItem from "@/components/CartItem/CartItem";
 
 const CartDetailPage = () => {
 
+    const dispatch = useAppDispatch();
+    const cartItems = useSelector((state) => state.cartReducer.cartItems);
+
+    useEffect(() => {
+        console.log("Contenido del carrito:", cartItems);
+        //handleUpdateCart();
+    }, [cartItems]);
 
     const count = 3;
 
     return (
-        <div className="bg-cream  text-brown ">
+        <div className="bg-cream  text-brown mt-10 ">
             <h1 className="text-center text-xl font-bold pt-2">Detalles de la bolsa</h1>
             <h1 className="text-center text-xl font-bold">de compra</h1>
             <div className="md:flex justify-center">
                 <div>
-                    <CartItem />
-                    <CartItem />
-                    <CartItem />
+                    {cartItems.length > 0 ? (
+                        cartItems.map((e, index) => (
+
+                            <CartItem
+                                key={e.id}
+                                _id={e._id}
+                                images={e.images}
+                                name={e.name}
+                                originalPrice={e.originalPrice}
+                                stock={e.stock}
+                            />
+
+
+                        ))
+
+                    ) : (
+                        <p className="text-gray-600">
+                            El carrito esta vacío.
+                            <br />
+                            <Link
+                                href="/#product"
+                                className="underline font-bold text-primary"
+                            >
+                                <span>Revisa el catalogo para agregar productos</span>
+                            </Link>
+                        </p>
+                    )}
                 </div>
-
-
-
                 <div className="flex justify-center  overflow-auto md:items-center  md:ml-8">
                     <div className=" flex-col text-center">
                         <div className=" text-sm flex justify-between ">
