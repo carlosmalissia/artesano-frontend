@@ -3,6 +3,10 @@
 import { useEffect, useState } from "react";
 import { Trash2 } from "lucide-react"
 import Image from "next/image";
+import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks"
+import { getCartData, removeItem, updateQuantity } from "@/redux/features/cart";
+import { toast, Toaster } from 'react-hot-toast';
 
 
 const CartItem = ({ _id, name, originalPrice, images, stock }) => {
@@ -18,6 +22,16 @@ const CartItem = ({ _id, name, originalPrice, images, stock }) => {
         } */
         setQuantity(newQuantity);
     };
+
+    // Elimino del localStorage y de la BD
+    const dispatch = useAppDispatch();
+
+    const handleRemoveItem = async (_id) => {
+        dispatch(removeItem({ _id }));
+        //handleUpdateCart();
+        toast.success("Removido del carrito")
+    };
+
 
     return (
         <div className=" flex justify-between h-15 bg-amber my-2 mx-2">
@@ -43,7 +57,11 @@ const CartItem = ({ _id, name, originalPrice, images, stock }) => {
                 </div>
                 <div className=" flex justify-end gap-10 text-dark-pink text-center pt-5 ml-10">
                     {originalPrice}
-                    <Trash2 />
+                    <button
+                        onClick={() => handleRemoveItem(_id)}>
+
+                        <Trash2 />
+                    </button>
                 </div>
             </div>
         </div>

@@ -29,7 +29,7 @@ export default function Card({ props }) {
             name: name,
             originalPrice: originalPrice,
             quantity: 1,
-            subtotal: salePrice * 1,
+            subtotal: originalPrice * 1,
             images: images[0],
             stock: stock,
         };
