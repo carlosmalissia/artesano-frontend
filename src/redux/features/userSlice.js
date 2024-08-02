@@ -14,7 +14,7 @@ const authSlice = createSlice({
       if (!state.user && !state.token) {
         const userDataString = localStorage.getItem('user');
         const token = localStorage.getItem('token');
-     
+
 
         const userData = JSON.parse(userDataString);
 
@@ -26,12 +26,13 @@ const authSlice = createSlice({
     },
     loginUser: (state, action) => {
       console.log(action.payload);
+      console.log(action.payload.accessToken);
       // Almacena la información del usuario y el token en el estado
-      state.user = action.payload.user;
-      state.token = action.payload.token;
+      state.user = action.payload; //ok
+      state.token = action.payload.accessToken; //ok
       // Almacena también en el localStorage
-      localStorage.setItem('user', JSON.stringify(action.payload.user));
-      localStorage.setItem('token', action.payload.token);
+      localStorage.setItem('user', JSON.stringify(action.payload));
+      localStorage.setItem('token', action.payload.accessToken);
     },
     logoutUser: (state) => {
       // Limpia la información del usuario y el token del estado

@@ -1,36 +1,86 @@
 "use client";
 import React, { useState } from "react";
-
+import { signIn, signOut, useSession } from "next-auth/react";
+import { useForm } from "react-hook-form"
+import { useDispatch } from 'react-redux';
+import { useLoginUserMutation } from '@/redux/services/usersApi';
+import { loginUser, logoutUser } from "@/redux/features/userSlice"
 import { Eye, EyeOff, Facebook, } from "lucide-react"
 import Link from "next/link";
 
 const Login = () => {
 
-    const [loginFormData, setLoginFormData] = useState({
-        loginEmail: '',
-        loginPassword: '',
-    });
+    const dispatch = useDispatch();
+    const [login] = useLoginUserMutation();
+    const [loginSuccess, setLoginSuccess] = useState(false);
 
-    const [showPassword, setShowPassword] = useState(false);
+    // validaciones con useForm
+    const { register, handleSubmit, formState: { errors } } = useForm()
+
+    const onSubmit = handleSubmit(async data => {
+        console.log(data);
+
+        console.log(errors);
+
+
+
+        try {
+            const loginResponse = await login(data);
+            console.log(loginResponse);
+
+            //if (loginResponse) {
+
+            setLoginSuccess(true);
+            dispatch(loginUser(loginResponse.data))
+
+            // Trayendo el shoppinCart del usuario
+            /* console.log("aca ", loginResponse.data.user._id);
+            const userID = loginResponse.data.user._id
+     
+            const userById = await axios(`https://pf-15a.up.railway.app/api/users/${userID}`)
+            const data = userById.data.shoppingCart
+            console.log("data ", data);
+     
+            data.forEach(element => {
+              const getProductById = async () => {
+                const productById = await axios(`https://pf-15a.up.railway.app/api/product/${element}`)
+                const productData = {
+                  _id: productById.data._id,
+                  title: productById.data.title,
+                  price: productById.data.price,
+                  quantity: 1,
+                  subtotal: productById.data.price * 1,
+                  image: productById.data.image,
+                  stock: productById.data.stock,
+                }
+                console.log("productos ", productData);
+                dispatch(addItem(productData));
+              }
+              getProductById()
+            }) */
+
+
+            /* } else {
+              console.error('Error en el inicio de sesión:', loginResponse?.data?.error);
+            }
+     */
+            /* setLoginFormData({
+              loginEmail: '',
+              loginPassword: '',
+            }); */
+        } catch (error) {
+            console.error('Error al iniciar sesión:', error);
+        }
+
+
+    })
+
     //funcion para ocultar la contraseña
+    const [showPassword, setShowPassword] = useState(false);
     const togglePasswordVisibility = () => {
         setShowPassword(!showPassword);
     };
-
-    const [formErrors, setFormErrors] = useState({});
-    const validateForm = () => {
-        const errors = validateLoginForm(loginFormData);
-        setFormErrors(errors);
-        return Object.keys(errors).length === 0;
-    };
-
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setLoginFormData({
-            ...loginFormData,
-            [name]: value,
-        });
-    };
+    //const { data, status } = useSession();
 
     const handleLoginSubmit = () => {
 
@@ -41,35 +91,37 @@ const Login = () => {
                 <h1 className=" text-xl font-bold text-center font-roboto  mx-auto mt-4 mb-2">
                     Iniciar sesión
                 </h1>
-                <form onSubmit={handleLoginSubmit}>
+                <form onSubmit={onSubmit}>
                     {/* Correo Electrónico para inicio de sesión */}
                     <div className="mb-4 mt-4">
                         <label
-                            htmlFor="loginEmail"
+                            htmlFor="email"
                             className="block text-gray-700 text-sm font-semibold mb-2"
                         >
                             Correo Electrónico
                         </label>
                         <input
                             type="email"
-                            id="loginEmail"
-                            name="loginEmail"
-                            placeholder="Email"
-                            value={loginFormData.loginEmail}
-                            onChange={handleChange}
+                            {...(register("email", {
+                                required: {
+                                    value: true,
+                                    message: "El email es requerido"
+                                }
+                            }))}
+                            id="email"
+                            name="email"
+                            placeholder="email"
                             className={`transition-all duration-300 ease-in-out transform scale-100 hover:scale-105 mr-10 bg-gray-50 border border-gray-300 text-black-500 text-sm rounded-lg focus:ring-teal-500 focus:border-teal-500 block w-full p-2 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-teal-500 dark:focus:border-teal-500`}
                         />
-                        {formErrors.loginEmail && (
-                            <p className="text-red-500 text-sm mt-1">
-                                {formErrors.loginEmail}
-                            </p>
+                        {errors.email && (
+                            <span className="text-dark-pink text-sm">{errors.email.message}</span>
                         )}
                     </div>
 
                     {/* Contraseña */}
                     <div className="mb-4">
                         <label
-                            htmlFor="loginPassword"
+                            htmlFor="password"
                             className="block text-gray-700 text-sm font-semibold mb-2"
                         >
                             Contraseña
@@ -77,11 +129,15 @@ const Login = () => {
                         <div className="relative">
                             <input
                                 type={showPassword ? "text" : "password"}
-                                id="loginPassword"
-                                name="loginPassword"
+                                {...(register("password", {
+                                    required: {
+                                        value: true,
+                                        message: "La contraseña es requerida"
+                                    }
+                                }))}
+                                id="password"
+                                name="password"
                                 placeholder="Contraseña"
-                                value={loginFormData.loginPassword}
-                                onChange={handleChange}
                                 className={`transition-all duration-300 ease-in-out transform scale-100 hover:scale-105 mr-10 bg-gray-50 border border-gray-300 text-black-500 text-sm rounded-lg focus:ring-teal-500 focus:border-teal-500 block w-full p-2 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-teal-500 dark:focus:border-teal-500`}
                             />
                             <button
@@ -92,10 +148,8 @@ const Login = () => {
                                 {showPassword ? <Eye /> : <EyeOff />}
                             </button>
                         </div>
-                        {formErrors.loginPassword && (
-                            <p className="text-red-500 text-sm mt-1">
-                                {formErrors.loginPassword}
-                            </p>
+                        {errors.password && (
+                            <span className="text-dark-pink text-sm">{errors.password.message}</span>
                         )}
                     </div>
 
