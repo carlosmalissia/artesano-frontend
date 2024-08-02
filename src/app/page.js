@@ -24,7 +24,7 @@ export default function Home() {
   ];
   return (
     <main>
-      <div className="bg-[url('../../public/banner.jpg')] h-[200px] md:h-[400px] lg:h-[600px] bg-norepeat bg-cover">
+      <div className="bg-[url('../../public/banner.jpg')] h-[200px] md:h-[400px] lg:h-[600px] bg-norepeat bg-cover mt-10">
         <div className="flex flex-col pt-6 lg:p-6 lg:gap-10 text-center text-brown lg:font-bold md:text-xl gap-4 md:gap-14 md:ml-5 lg:text-2xl lg:w-[50%] md:w-[50%] w-[50%] text-[12px]">
           <h1 className="bg-cream bg-opacity-60 rounded-lg lg:p-3 md:p-3 p-1 font-bold md:mt-5 lg:mt-[24%]">
             Portal de venta de artesanías
@@ -47,7 +47,7 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <section className="bg-cream" id="products">
+      <section className="bg-cream pt-10" id="products">
         {categories.map(({ Category }, index) => (
           <Carrousel key={index} categoryName={Category} />
         ))}

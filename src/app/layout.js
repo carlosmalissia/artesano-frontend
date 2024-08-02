@@ -1,6 +1,7 @@
 import { Roboto } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/navbar";
+import { Providers } from '@/redux/providers'
 
 const roboto = Roboto({ subsets: ["latin"], weight: ["100", "400", "700"] });
 
@@ -13,9 +14,11 @@ export default function RootLayout({ children }) {
   return (
     <html lang="es">
       <body className={roboto.className}>
-        <Navbar />
-        {children}
+        <Providers>
+          <Navbar />
+          {children}
+        </Providers>
       </body>
-    </html>
+    </html >
   );
 }
