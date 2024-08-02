@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form"
 import Link from "next/link";
 //import { toast, Toaster } from 'react-hot-toast';
-import Link from "next/link";
 import { Eye, EyeOff } from "lucide-react"
 
 const Register = () => {
